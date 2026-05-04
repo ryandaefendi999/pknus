@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PKN Kelas 9 - Kurikulum Merdeka</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #111827;
+  --card: #1a2235;
+  --card2: #1e2d45;
+  --accent: #38bdf8;
+  --accent2: #818cf8;
+  --accent3: #f472b6;
+  --gold: #fbbf24;
+  --green: #22c55e;
+  --red: #ef4444;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --border: rgba(56,189,248,0.15);
+  --glow: 0 0 20px rgba(56,189,248,0.3);
+  --radius: 16px;
+  --font: 'Poppins', sans-serif;
+  --display: 'Playfair Display', serif;
+}
+.eye-care {
+  --bg: #1a1a12;
+  --bg2: #2a2a1a;
+  --card: #2d2d1e;
+  --card2: #35352a;
+  --accent: #a8c97a;
+  --accent2: #c4b87a;
+  --accent3: #e8c97a;
+  --gold: #d4a843;
+  --text: #d4cdb0;
+  --text2: #a09880;
+  --border: rgba(168,201,122,0.2);
+  --glow: 0 0 20px rgba(168,201,122,0.2);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: all 0.5s ease;
+  overflow-x: hidden;
+}
+/* ===== AUDIO CONTROL ===== */
+#audioControl {
+  position: fixed; bottom: 16px; left: 16px; z-index: 9999;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 50%; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; backdrop-filter: blur(10px);
+  box-shadow: var(--glow); transition: all 0.3s;
+  font-size: 18px;
+}
+#audioControl:hover { transform: scale(1.1); }
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(10,14,26,0.85); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--display); font-size: 20px; font-weight: 900;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav-tabs { display: flex; gap: 4px; }
+.nav-tab {
+  padding: 8px 18px; border-radius: 50px; cursor: pointer;
+  font-size: 13px; font-weight: 600; transition: all 0.3s;
+  border: 1px solid transparent; color: var(--text2);
+}
+.nav-tab.active, .nav-tab:hover {
+  background: var(--card); border-color: var(--border);
+  color: var(--accent);
+}
+.nav-tools { display: flex; gap: 8px; align-items: center; }
+.tool-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; transition: all 0.3s;
+  position: relative;
+}
+.tool-btn:hover { transform: scale(1.1); box-shadow: var(--glow); }
+.tool-btn .tooltip {
+  position: absolute; top: 44px; right: 0;
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 4px 10px;
+  font-size: 11px; white-space: nowrap; color: var(--text);
+  opacity: 0; pointer-events: none; transition: 0.2s;
+}
+.tool-btn:hover .tooltip { opacity: 1; }
+/* ===== PAGES ===== */
+.page { display: none; padding-top: 80px; min-height: 100vh; }
+.page.active { display: block; }
+/* ===== HERO ===== */
+.hero {
+  text-align: center; padding: 60px 20px 40px;
+  background: radial-gradient(ellipse at top, rgba(56,189,248,0.08) 0%, transparent 60%);
+}
+.hero-title {
+  font-family: var(--display); font-size: clamp(28px,5vw,52px);
+  font-weight: 900; line-height: 1.1; margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--accent3) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: titlePulse 3s ease-in-out infinite;
+}
+@keyframes titlePulse { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.2)} }
+.hero-sub { color: var(--text2); font-size: 15px; font-weight: 500; }
+.history-banner {
+  margin: 16px 20px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 20px;
+  font-size: 13px; color: var(--text2);
+  max-height: 120px; overflow-y: auto;
+}
+.history-banner h4 { color: var(--accent); margin-bottom: 8px; font-size: 13px; }
+.history-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 12px;
+}
+/* ===== SEARCH ===== */
+.search-bar {
+  margin: 16px 20px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 50px; padding: 12px 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.search-bar input {
+  flex: 1; background: none; border: none; outline: none;
+  color: var(--text); font-family: var(--font); font-size: 14px;
+}
+.search-bar input::placeholder { color: var(--text2); }
+.search-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none; border-radius: 50px; padding: 8px 16px;
+  color: white; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: 0.3s;
+}
+.search-btn:hover { transform: scale(1.05); }
+.ai-answer {
+  margin: 0 20px 16px; background: var(--card2);
+  border: 1px solid var(--accent); border-radius: var(--radius);
+  padding: 16px; font-size: 14px; display: none;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+.ai-answer.show { display: block; }
+/* ===== MATERI GRID ===== */
+.section-label {
+  margin: 24px 20px 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 3px;
+  color: var(--accent2); text-transform: uppercase;
+}
+.materi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px; padding: 0 20px 30px;
+}
+.materi-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative; user-select: none; -webkit-user-select: none;
+}
+.materi-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  opacity: 0; transition: 0.4s;
+}
+.materi-card:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--glow); }
+.materi-card:hover::before { opacity: 0.05; }
+.card-header {
+  padding: 16px 20px 12px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.card-num {
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+}
+.card-title { font-weight: 700; font-size: 15px; line-height: 1.3; flex: 1; }
+.card-arrow {
+  font-size: 18px; color: var(--text2);
+  transition: transform 0.3s; flex-shrink: 0;
+}
+.materi-card.open .card-arrow { transform: rotate(90deg); }
+.card-tags {
+  padding: 0 20px 12px; display: flex; flex-wrap: wrap; gap: 6px;
+}
+.tag {
+  background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 50px; padding: 3px 10px;
+  font-size: 11px; color: var(--accent); font-weight: 500;
+}
+.card-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 20px;
+}
+.materi-card.open .card-body { max-height: 2000px; padding-bottom: 16px; }
+.card-body-inner {
+  background: var(--card2); border-radius: 12px; padding: 16px;
+  border-left: 3px solid var(--accent);
+}
+.card-body p { font-size: 14px; line-height: 1.7; color: var(--text2); margin-bottom: 10px; }
+.card-body p:last-child { margin-bottom: 0; }
+.card-body h5 { font-size: 13px; color: var(--accent); margin: 10px 0 4px; font-weight: 700; }
+.card-body ul { list-style: none; }
+.card-body ul li { font-size: 13px; color: var(--text2); padding: 3px 0 3px 16px; position: relative; line-height: 1.5; }
+.card-body ul li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+/* ===== QUIZ PAGE ===== */
+#quizPage { padding: 80px 0 40px; }
+.quiz-nav {
+  display: flex; gap: 6px; padding: 16px 20px;
+  overflow-x: auto; flex-wrap: wrap;
+  scrollbar-width: none;
+}
+.quiz-nav::-webkit-scrollbar { display: none; }
+.qnav-btn {
+  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--text2); transition: all 0.2s;
+}
+.qnav-btn.current { background: var(--accent); color: white; border-color: var(--accent); }
+.qnav-btn.answered-correct { background: rgba(34,197,94,0.2); border-color: var(--green); color: var(--green); }
+.qnav-btn.answered-wrong { background: rgba(239,68,68,0.2); border-color: var(--red); color: var(--red); }
+.qnav-btn.locked { opacity: 0.4; cursor: not-allowed; }
+.quiz-progress {
+  margin: 0 20px 16px;
+  height: 6px; background: var(--card); border-radius: 50px; overflow: hidden;
+}
+.quiz-progress-bar {
+  height: 100%; border-radius: 50px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transition: width 0.5s ease;
+}
+.quiz-card {
+  margin: 0 20px 20px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+}
+.quiz-card-header {
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+}
+.q-num {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white; font-weight: 800; font-size: 13px;
+  padding: 4px 12px; border-radius: 50px;
+}
+.q-text { font-size: 15px; font-weight: 600; line-height: 1.5; flex: 1; }
+.q-options {
+  padding: 16px 24px; display: flex; flex-direction: column; gap: 10px;
+}
+.q-option {
+  padding: 14px 18px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--card2);
+  cursor: pointer; font-size: 14px; transition: all 0.3s;
+  display: flex; align-items: center; gap: 12px;
+}
+.q-option:hover:not(.disabled) { border-color: var(--accent); background: rgba(56,189,248,0.08); transform: translateX(4px); }
+.q-option.correct { border-color: var(--green); background: rgba(34,197,94,0.1); color: var(--green); }
+.q-option.wrong { border-color: var(--red); background: rgba(239,68,68,0.1); color: var(--red); }
+.q-option.disabled { cursor: not-allowed; }
+.q-option-letter {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  background: var(--card); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 12px;
+}
+.q-explanation {
+  margin: 0 24px 16px; padding: 14px;
+  background: var(--bg2); border-radius: 12px;
+  border-left: 3px solid var(--accent2);
+  font-size: 13px; line-height: 1.6; color: var(--text2);
+  display: none; animation: fadeIn 0.3s ease;
+}
+.q-explanation.show { display: block; }
+.q-explanation strong { color: var(--text); }
+.q-controls {
+  padding: 16px 24px; display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid var(--border);
+}
+.btn {
+  padding: 10px 24px; border-radius: 50px; cursor: pointer;
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  border: none; transition: all 0.3s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+}
+.btn-primary:hover { transform: scale(1.05); box-shadow: var(--glow); }
+.btn-ghost {
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+/* ===== SCORE SCREEN ===== */
+#scoreScreen {
+  display: none; position: fixed; inset: 0; z-index: 5000;
+  background: var(--bg); padding: 20px;
+  overflow-y: auto; padding-top: 80px;
+}
+#scoreScreen.show { display: flex; flex-direction: column; align-items: center; }
+.score-ring {
+  width: 160px; height: 160px; border-radius: 50%; margin: 20px auto;
+  background: conic-gradient(var(--accent) 0deg, var(--accent2) var(--score-deg, 0deg), var(--card) var(--score-deg, 0deg));
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 40px rgba(56,189,248,0.3);
+  position: relative;
+}
+.score-ring-inner {
+  width: 130px; height: 130px; border-radius: 50%;
+  background: var(--bg2); display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.score-num { font-family: var(--display); font-size: 42px; font-weight: 900; color: var(--accent); }
+.score-label { font-size: 12px; color: var(--text2); }
+.score-stats {
+  display: flex; gap: 16px; margin: 16px 0;
+  width: 100%; max-width: 400px;
+}
+.stat-box {
+  flex: 1; background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; text-align: center;
+}
+.stat-num { font-size: 28px; font-weight: 800; }
+.stat-lbl { font-size: 12px; color: var(--text2); margin-top: 4px; }
+.score-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 400px; }
+.score-actions .btn { width: 100%; text-align: center; padding: 14px; }
+/* DISCO LIGHTS */
+.disco-container {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+  display: none;
+}
+.disco-container.show { display: block; }
+.disco-light {
+  position: absolute; top: -20px;
+  width: 4px; height: 60px; border-radius: 2px;
+  transform-origin: top center;
+  animation: discoSpin 1.5s ease-in-out infinite;
+}
+@keyframes discoSpin {
+  0%{transform:rotate(-60deg) translateY(0)} 
+  50%{transform:rotate(60deg) translateY(50vh)}
+  100%{transform:rotate(-60deg) translateY(0)}
+}
+/* ===== DRAWING PANEL ===== */
+#drawPanel {
+  position: fixed; bottom: -100%; left: 0; right: 0; z-index: 2000;
+  background: var(--bg2); border-top: 2px solid var(--border);
+  padding: 16px; transition: bottom 0.4s cubic-bezier(0.4,0,0.2,1);
+  border-radius: 20px 20px 0 0;
+}
+#drawPanel.open { bottom: 0; }
+#drawCanvas {
+  width: 100%; height: 220px; background: #0f172a;
+  border-radius: 12px; cursor: crosshair; touch-action: none;
+  border: 1px solid var(--border);
+}
+.draw-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 10px; }
+.draw-color {
+  width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+  border: 2px solid transparent; transition: 0.2s; flex-shrink: 0;
+}
+.draw-color.active { border-color: white; transform: scale(1.2); }
+.draw-size {
+  height: 6px; flex: 1; min-width: 80px; cursor: pointer;
+  appearance: none; background: var(--card); border-radius: 50px;
+}
+/* ===== BALL GAME ===== */
+#ballCanvas {
+  position: fixed; inset: 0; pointer-events: none; z-index: 100;
+  display: none;
+}
+#ballCanvas.active { display: block; pointer-events: auto; }
+/* ===== VIDEO OVERLAY ===== */
+#videoOverlay {
+  display: none; position: fixed; inset: 0; z-index: 10000;
+  background: black; align-items: center; justify-content: center;
+}
+#videoOverlay.show { display: flex; }
+#videoOverlay video { width: 100%; height: 100%; object-fit: contain; }
+/* ===== PREDICTION MODAL ===== */
+#predModal {
+  display: none; position: fixed; inset: 0; z-index: 8000;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+  align-items: center; justify-content: center; padding: 20px;
+}
+#predModal.show { display: flex; }
+.pred-card {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px; width: 100%; max-width: 400px;
+  animation: fadeIn 0.3s ease;
+}
+.pred-card h3 { text-align: center; margin-bottom: 20px; font-family: var(--display); }
+.pred-input {
+  width: 100%; padding: 12px 16px; border-radius: 12px;
+  background: var(--card); border: 1px solid var(--border);
+  color: var(--text); font-family: var(--font); font-size: 14px;
+  margin-bottom: 12px; outline: none; transition: 0.2s;
+}
+.pred-input:focus { border-color: var(--accent); }
+.pred-result {
+  text-align: center; padding: 20px; display: none;
+  animation: fadeIn 0.5s ease;
+}
+.pred-result.show { display: block; }
+.pred-nilai {
+  font-family: var(--display); font-size: 64px; font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--accent3));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.pred-mie { margin-top: 16px; padding: 16px; background: var(--card); border-radius: 12px; }
+.pred-mie p { font-weight: 600; margin-bottom: 12px; }
+.pred-btns { display: flex; gap: 10px; }
+.pred-btns .btn { flex: 1; text-align: center; font-size: 13px; }
+/* LOADING DOTS */
+.loading-dots span { animation: dot 1.4s infinite; display: inline-block; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dot { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+/* ===== REVIEW WRONG ANSWERS ===== */
+#reviewPanel {
+  display: none; padding: 20px;
+  position: fixed; inset: 0; z-index: 6000;
+  background: var(--bg); overflow-y: auto; padding-top: 20px;
+}
+#reviewPanel.show { display: block; }
+.review-item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 12px;
+  border-left: 4px solid var(--red);
+}
+.review-item h5 { font-size: 14px; margin-bottom: 8px; }
+.review-answer { font-size: 13px; color: var(--text2); }
+.review-correct { color: var(--green); font-weight: 600; }
+.review-explain { font-size: 13px; color: var(--text2); margin-top: 8px; line-height: 1.6; }
+/* ===== ANIMATIONS ===== */
+@keyframes cardEntrance {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.materi-card { animation: cardEntrance 0.4s ease both; }
+/* MOBILE */
+@media (max-width: 640px) {
+  .materi-grid { grid-template-columns: 1fr; }
+  .nav-logo { font-size: 16px; }
+  .nav-tab { padding: 6px 12px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop src="musik99.mp3"></audio>
+<audio id="wrongSfx" src="musik99.mp3"></audio>
+
+<!-- AUDIO CONTROL -->
+<div id="audioControl" onclick="toggleMusic()">
+  <span id="musicIcon">🎵</span>
+</div>
+
+<!-- VIDEO OVERLAY (wrong answer) -->
+<div id="videoOverlay">
+  <video id="wrongVideo" src="video99.mp4" playsinline></video>
+</div>
+
+<!-- DISCO LIGHTS -->
+<div class="disco-container" id="discoLights"></div>
+
+<!-- BALL CANVAS -->
+<canvas id="ballCanvas"></canvas>
+
+<!-- DRAW PANEL -->
+<div id="drawPanel">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <span style="font-weight:700;font-size:14px">✏️ Papan Tulis Digital</span>
+    <button class="btn btn-ghost" onclick="toggleDraw()" style="padding:6px 14px;font-size:13px">Tutup</button>
+  </div>
+  <canvas id="drawCanvas"></canvas>
+  <div class="draw-tools">
+    <div class="draw-color active" style="background:#38bdf8" onclick="setColor('#38bdf8',this)"></div>
+    <div class="draw-color" style="background:#f472b6" onclick="setColor('#f472b6',this)"></div>
+    <div class="draw-color" style="background:#22c55e" onclick="setColor('#22c55e',this)"></div>
+    <div class="draw-color" style="background:#fbbf24" onclick="setColor('#fbbf24',this)"></div>
+    <div class="draw-color" style="background:#ef4444" onclick="setColor('#ef4444',this)"></div>
+    <div class="draw-color" style="background:#ffffff" onclick="setColor('#ffffff',this)"></div>
+    <input type="range" class="draw-size" id="brushSize" min="1" max="20" value="3">
+    <button class="btn btn-ghost" onclick="clearCanvas()" style="padding:6px 14px;font-size:13px">🗑️</button>
+  </div>
+</div>
+
+<!-- PREDICTION MODAL -->
+<div id="predModal">
+  <div class="pred-card">
+    <h3 style="color:var(--gold)">🔮 Prediksi Nilai</h3>
+    <div id="predForm">
+      <p style="font-size:14px;color:var(--text2);margin-bottom:16px">Masukkan 2 mata pelajaran yang akan diujikan besok:</p>
+      <input class="pred-input" id="mapel1" placeholder="Mata Pelajaran 1 (contoh: PKN)">
+      <input class="pred-input" id="mapel2" placeholder="Mata Pelajaran 2 (contoh: IPA)">
+      <div style="display:flex;gap:10px;margin-top:4px">
+        <button class="btn btn-ghost" onclick="closePred()" style="flex:1">Batal</button>
+        <button class="btn btn-primary" onclick="runPrediction()" style="flex:1">Prediksi! 🎯</button>
+      </div>
+    </div>
+    <div class="pred-result" id="predResult">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:8px">Prediksi nilai untuk <span id="predMapelNames" style="color:var(--accent)"></span></div>
+      <div class="pred-nilai" id="predNilai">0</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:8px" id="predMsg"></div>
+      <div class="pred-mie" id="mieSection" style="display:none">
+        <p>🍜 Wih nilai bagus! Belikkan yanda <strong>Mie Padeh Topping Ayam</strong>? 😋</p>
+        <div class="pred-btns">
+          <button class="btn btn-primary" onclick="closePred()">Iya, Gas! 🔥</button>
+          <button class="btn btn-ghost" onclick="closePred()">Oke gas 😎</button>
+        </div>
+      </div>
+      <div id="afterPredBtns" style="margin-top:16px;display:flex;gap:10px">
+        <button class="btn btn-ghost" onclick="closePred()" style="flex:1">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEW PANEL -->
+<div id="reviewPanel">
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+    <button class="btn btn-ghost" onclick="closeReview()" style="padding:8px 16px">← Kembali</button>
+    <h3 style="font-family:var(--display)">📋 Review Jawaban Salah</h3>
+  </div>
+  <div id="reviewContent"></div>
+</div>
+
+<!-- SCORE SCREEN -->
+<div id="scoreScreen">
+  <h2 style="font-family:var(--display);font-size:24px;text-align:center">Hasil Latihan Soal 🎯</h2>
+  <div class="score-ring" id="scoreRing">
+    <div class="score-ring-inner">
+      <div class="score-num" id="scoreNum">0</div>
+      <div class="score-label">dari 50 soal</div>
+    </div>
+  </div>
+  <div class="score-stats">
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--green)" id="correctCount">0</div>
+      <div class="stat-lbl">✅ Benar</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--red)" id="wrongCount">0</div>
+      <div class="stat-lbl">❌ Salah</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num" style="color:var(--gold)" id="scorePercent">0%</div>
+      <div class="stat-lbl">📊 Nilai</div>
+    </div>
+  </div>
+  <div class="score-actions">
+    <button class="btn btn-primary" onclick="showReview()">📋 Lihat Pembahasan Salah</button>
+    <button class="btn btn-ghost" onclick="showPred()">🔮 Prediksi Nilai Besok</button>
+    <button class="btn btn-ghost" onclick="restartQuiz()">🔄 Ulangi Latihan</button>
+    <button class="btn btn-ghost" onclick="goToMateri()">📚 Kembali ke Materi</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">📚 PKN IX</div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" onclick="switchPage('materi')">Materi</div>
+    <div class="nav-tab" onclick="switchPage('quiz')">Latihan</div>
+  </div>
+  <div class="nav-tools">
+    <div class="tool-btn" id="eyeBtn" onclick="toggleEye()">👁️<span class="tooltip">Mode Mata Nyaman</span></div>
+    <div class="tool-btn" onclick="toggleDraw()">✏️<span class="tooltip">Papan Tulis</span></div>
+    <div class="tool-btn" id="ballBtn" onclick="toggleBall()">⚽<span class="tooltip">Main Bola</span></div>
+  </div>
+</nav>
+
+<!-- MATERI PAGE -->
+<div class="page active" id="materiPage">
+  <div class="hero">
+    <div class="hero-title">PKN Kelas 9<br>Kurikulum Merdeka</div>
+    <div class="hero-sub">Klik setiap topik untuk membaca materi lengkap • Belajar lebih menyenangkan</div>
+  </div>
+
+  <!-- History Banner -->
+  <div id="historyBanner" style="display:none" class="history-banner">
+    <h4>📜 Riwayat Pengerjaan Soal</h4>
+    <div id="historyList"></div>
+  </div>
+
+  <!-- AI Search -->
+  <div class="search-bar">
+    <span>🤖</span>
+    <input type="text" id="searchInput" placeholder="Cari materi atau tanya seputar PKN kelas 9..." onkeydown="if(event.key==='Enter')searchMateri()">
+    <button class="search-btn" onclick="searchMateri()">Tanya AI</button>
+  </div>
+  <div class="ai-answer" id="aiAnswer"></div>
+
+  <div class="section-label">— Topik Materi —</div>
+  <div class="materi-grid" id="materiGrid"></div>
+</div>
+
+<!-- QUIZ PAGE -->
+<div class="page" id="quizPage">
+  <div style="padding:16px 20px 0">
+    <h2 style="font-family:var(--display);font-size:22px">Latihan Soal PKN 📝</h2>
+    <p style="font-size:13px;color:var(--text2);margin-top:4px">50 soal pilihan ganda • Kelas 9 Kurikulum Merdeka</p>
+  </div>
+  <div class="quiz-nav" id="quizNav"></div>
+  <div class="quiz-progress"><div class="quiz-progress-bar" id="progressBar" style="width:0%"></div></div>
+  <div id="quizContainer"></div>
+</div>
+
+<script>
+// ===== DATA MATERI =====
+const materiData = [
+  {
+    num: 1,
+    title: "Sejarah Pancasila — BPUPKI",
+    tags: ["Sejarah","Pancasila","BPUPKI"],
+    content: `
+      <h5>Apa itu BPUPKI?</h5>
+      <p>BPUPKI (Badan Penyelidik Usaha-Usaha Persiapan Kemerdekaan Indonesia) dibentuk pada 1 Maret 1945 oleh pemerintah Jepang. Badan ini bertugas menyelidiki dan mempersiapkan segala hal yang dibutuhkan untuk kemerdekaan Indonesia.</p>
+      <h5>Sidang BPUPKI</h5>
+      <p>BPUPKI mengadakan dua kali sidang resmi:</p>
+      <ul>
+        <li>Sidang I: 29 Mei – 1 Juni 1945 → Membahas dasar negara</li>
+        <li>Sidang II: 10 – 17 Juli 1945 → Membahas UUD dan wilayah negara</li>
+      </ul>
+      <h5>Tokoh Perumus Pancasila</h5>
+      <ul>
+        <li>Mr. Mohammad Yamin (29 Mei 1945): Mengusulkan 5 asas pertama</li>
+        <li>Mr. Soepomo (31 Mei 1945): Mengusulkan dasar integralistik</li>
+        <li>Ir. Soekarno (1 Juni 1945): Mengusulkan Pancasila (nama dicetuskan beliau)</li>
+      </ul>`
+  },
+  {
+    num: 2,
+    title: "Sejarah Pancasila — Rumusan & Karakteristik",
+    tags: ["Pancasila","Rumusan","Karakteristik"],
+    content: `
+      <h5>Rumusan Pancasila Sah (Pembukaan UUD 1945)</h5>
+      <ul>
+        <li>1. Ketuhanan Yang Maha Esa</li>
+        <li>2. Kemanusiaan yang Adil dan Beradab</li>
+        <li>3. Persatuan Indonesia</li>
+        <li>4. Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan</li>
+        <li>5. Keadilan Sosial bagi Seluruh Rakyat Indonesia</li>
+      </ul>
+      <h5>Karakteristik Pancasila</h5>
+      <ul>
+        <li>Bersifat objektif: Pancasila sesuai dengan kondisi bangsa</li>
+        <li>Bersifat universal: berlaku untuk semua bangsa</li>
+        <li>Bersifat permanen: tidak dapat diubah/diganti</li>
+        <li>Merupakan pandangan hidup, dasar negara, dan ideologi</li>
+      </ul>
+      <h5>Keunggulan Demokrasi Pancasila</h5>
+      <ul>
+        <li>Mengutamakan musyawarah mufakat</li>
+        <li>Menghargai HAM sesuai nilai kemanusiaan</li>
+        <li>Tidak mengenal diktator mayoritas maupun tirani minoritas</li>
+        <li>Kebebasan diimbangi tanggung jawab moral</li>
+      </ul>`
+  },
+  {
+    num: 3,
+    title: "Sejarah Pancasila — Hasil PPKI",
+    tags: ["PPKI","Kemerdekaan","Sejarah"],
+    content: `
+      <h5>PPKI (Panitia Persiapan Kemerdekaan Indonesia)</h5>
+      <p>PPKI dibentuk 7 Agustus 1945 sebagai pengganti BPUPKI. Diketuai oleh Ir. Soekarno dan Wakil Ketua Mohammad Hatta.</p>
+      <h5>Hasil Sidang PPKI (18 Agustus 1945)</h5>
+      <ul>
+        <li>Mengesahkan UUD 1945 sebagai konstitusi negara</li>
+        <li>Memilih Soekarno-Hatta sebagai Presiden dan Wakil Presiden pertama</li>
+        <li>Menetapkan KNIP (Komite Nasional Indonesia Pusat) sebagai lembaga sementara</li>
+        <li>Mengubah "Ketuhanan dengan kewajiban menjalankan syariat Islam..." menjadi "Ketuhanan Yang Maha Esa" demi persatuan bangsa</li>
+      </ul>`
+  },
+  {
+    num: 4,
+    title: "Norma — Pengertian, Contoh & Sanksi",
+    tags: ["Norma","Hukum","Sosial"],
+    content: `
+      <h5>Pengertian Norma</h5>
+      <p>Norma adalah aturan atau kaidah yang berlaku dalam masyarakat sebagai pedoman tingkah laku manusia. Norma bertujuan menciptakan ketertiban dan kedamaian dalam kehidupan bersama.</p>
+      <h5>Jenis-Jenis Norma</h5>
+      <ul>
+        <li><strong>Norma Agama</strong> – bersumber dari Tuhan, sanksinya dosa. Contoh: larangan mencuri, berzina</li>
+        <li><strong>Norma Kesusilaan</strong> – bersumber dari hati nurani, sanksinya malu/penyesalan. Contoh: menghormati orang tua</li>
+        <li><strong>Norma Kesopanan</strong> – bersumber dari masyarakat, sanksinya dikucilkan. Contoh: menyapa tetangga</li>
+        <li><strong>Norma Hukum</strong> – bersumber dari negara, sanksinya penjara/denda. Contoh: tidak boleh korupsi</li>
+      </ul>
+      <h5>Sanksi Norma</h5>
+      <ul>
+        <li>Norma agama: sanksi akhirat (dosa)</li>
+        <li>Norma kesusilaan: sanksi moral (penyesalan)</li>
+        <li>Norma kesopanan: sanksi sosial (dikucilkan)</li>
+        <li>Norma hukum: sanksi tegas (penjara, denda)</li>
+      </ul>`
+  },
+  {
+    num: 5,
+    title: "Sistem Pemerintahan Presidensial",
+    tags: ["Sistem Pemerintahan","Presidensial"],
+    content: `
+      <h5>Pengertian</h5>
+      <p>Sistem presidensial adalah sistem pemerintahan di mana presiden memegang kekuasaan eksekutif sekaligus sebagai kepala negara dan kepala pemerintahan, tidak bergantung pada kepercayaan parlemen.</p>
+      <h5>Ciri-Ciri Sistem Presidensial</h5>
+      <ul>
+        <li>Presiden dipilih langsung oleh rakyat</li>
+        <li>Presiden tidak bertanggung jawab kepada parlemen</li>
+        <li>Presiden memiliki hak veto</li>
+        <li>Masa jabatan presiden tetap dan pasti</li>
+        <li>Menteri bertanggung jawab kepada presiden</li>
+        <li>Indonesia menganut sistem ini</li>
+      </ul>
+      <h5>Kelebihan & Kekurangan</h5>
+      <ul>
+        <li>Kelebihan: stabil, tegas, tidak mudah dijatuhkan</li>
+        <li>Kekurangan: bisa terjadi konflik eksekutif-legislatif</li>
+      </ul>`
+  },
+  {
+    num: 6,
+    title: "Sistem Pemerintahan Parlementer",
+    tags: ["Sistem Pemerintahan","Parlementer"],
+    content: `
+      <h5>Pengertian</h5>
+      <p>Sistem parlementer adalah sistem pemerintahan di mana parlemen memiliki peran dominan. Kepala pemerintahan adalah Perdana Menteri yang bertanggung jawab kepada parlemen.</p>
+      <h5>Ciri-Ciri Sistem Parlementer</h5>
+      <ul>
+        <li>Kepala negara dan kepala pemerintahan terpisah</li>
+        <li>Perdana Menteri dipilih oleh parlemen</li>
+        <li>Pemerintah dapat dijatuhkan mosi tidak percaya</li>
+        <li>Parlemen dapat dibubarkan oleh eksekutif</li>
+        <li>Contoh negara: Inggris, Jepang, Malaysia</li>
+      </ul>
+      <h5>Indonesia & Parlementer</h5>
+      <p>Indonesia pernah menerapkan sistem parlementer pada periode 1945–1959 (Orde Lama sebelum Dekrit Presiden 5 Juli 1959), yang mengakibatkan kabinet sering berganti.</p>`
+  },
+  {
+    num: 7,
+    title: "Perjuangan Sebelum Kemerdekaan",
+    tags: ["Sejarah","Perjuangan","Kemerdekaan"],
+    content: `
+      <h5>Budi Utomo (1908)</h5>
+      <p>Organisasi pergerakan pertama yang didirikan oleh Dr. Wahidin Sudirohusodo dan Dr. Soetomo pada 20 Mei 1908. Memperjuangkan kemajuan pendidikan dan kebudayaan Jawa. Tanggal berdirinya diperingati sebagai Hari Kebangkitan Nasional.</p>
+      <h5>Sumpah Pemuda (28 Oktober 1928)</h5>
+      <p>Ikrar pemuda-pemudi Indonesia yang menyatakan: bertumpah darah satu (Indonesia), berbangsa satu (Indonesia), dan berbahasa satu (Indonesia). Momen penting persatuan bangsa.</p>
+      <h5>Peristiwa Surabaya (10 November 1945)</h5>
+      <p>Pertempuran heroik rakyat Surabaya melawan pasukan Sekutu Inggris. Dipimpin oleh Bung Tomo dengan pidato berapi-apinya. Diperingati sebagai Hari Pahlawan setiap 10 November.</p>
+      <h5>Peristiwa Madiun (1948)</h5>
+      <p>Pemberontakan PKI Madiun pada 18 September 1948, dipimpin oleh Musso dan Amir Sjarifuddin, yang mencoba merebut kekuasaan namun berhasil ditumpas.</p>
+      <h5>Perjanjian Linggarjati (1946)</h5>
+      <p>Perjanjian antara Indonesia dan Belanda, ditandatangani 25 Maret 1947. Belanda mengakui wilayah Indonesia meliputi Jawa, Madura, dan Sumatra. Kemudian Belanda melanggar dengan Agresi Militer I.</p>`
+  },
+  {
+    num: 8,
+    title: "UUD 1945 — Fungsi & Amandemen",
+    tags: ["UUD 1945","Konstitusi","Amandemen"],
+    content: `
+      <h5>Fungsi UUD 1945</h5>
+      <ul>
+        <li>Sebagai hukum dasar negara (hukum tertinggi)</li>
+        <li>Sebagai alat kontrol penyelenggaraan negara</li>
+        <li>Sebagai pedoman penyelenggaraan pemerintahan</li>
+        <li>Menjamin hak-hak warga negara</li>
+      </ul>
+      <h5>Amandemen UUD 1945</h5>
+      <p>UUD 1945 telah diamandemen sebanyak 4 kali (1999–2002):</p>
+      <ul>
+        <li>Amandemen I (1999): Membatasi kekuasaan presiden, memperkuat DPR</li>
+        <li>Amandemen II (2000): HAM, otonomi daerah, DPD</li>
+        <li>Amandemen III (2001): Pemilihan presiden langsung, MK, KY</li>
+        <li>Amandemen IV (2002): DPD, pendidikan, perekonomian</li>
+      </ul>
+      <h5>Sebelum vs Sesudah Amandemen</h5>
+      <ul>
+        <li>Sebelum: MPR lembaga tertinggi → Sesudah: MPR sejajar lembaga lain</li>
+        <li>Sebelum: Presiden dipilih MPR → Sesudah: Presiden dipilih rakyat langsung</li>
+        <li>Sebelum: Tidak ada MK → Sesudah: Ada MK dan KY</li>
+      </ul>`
+  },
+  {
+    num: 9,
+    title: "UUD 1945 — Pasal 29–33 & Makna Pembukaan",
+    tags: ["UUD 1945","Pasal 29-33","Pembukaan"],
+    content: `
+      <h5>Pasal 29 — Agama</h5>
+      <p>Negara berdasar atas Ketuhanan Yang Maha Esa. Negara menjamin kemerdekaan tiap-tiap penduduk untuk memeluk agamanya masing-masing dan untuk beribadat menurut agamanya dan kepercayaannya.</p>
+      <h5>Pasal 30 — Pertahanan & Keamanan</h5>
+      <p>Setiap warga negara berhak dan wajib ikut serta dalam usaha pertahanan dan keamanan negara.</p>
+      <h5>Pasal 31 — Pendidikan</h5>
+      <p>Setiap warga negara berhak mendapat pendidikan. Pemerintah wajib membiayai pendidikan dasar dan mengalokasikan minimal 20% APBN untuk pendidikan.</p>
+      <h5>Pasal 32 — Kebudayaan</h5>
+      <p>Negara memajukan kebudayaan nasional Indonesia di tengah peradaban dunia.</p>
+      <h5>Pasal 33 — Perekonomian</h5>
+      <p>Perekonomian disusun sebagai usaha bersama berdasar atas asas kekeluargaan. Bumi, air dan kekayaan alam dikuasai negara untuk kemakmuran rakyat.</p>
+      <h5>Makna Pembukaan UUD 1945</h5>
+      <ul>
+        <li>Alinea 1: Kemerdekaan adalah hak segala bangsa</li>
+        <li>Alinea 2: Perjuangan kemerdekaan telah sampai pada saat yang berbahagia</li>
+        <li>Alinea 3: Pernyataan kemerdekaan Indonesia</li>
+        <li>Alinea 4: Tujuan negara dan dasar negara Pancasila</li>
+      </ul>
+      <h5>Pokok Pikiran Pembukaan UUD 1945</h5>
+      <ul>
+        <li>Pokok I: Persatuan (negara melindungi segenap bangsa)</li>
+        <li>Pokok II: Keadilan sosial</li>
+        <li>Pokok III: Kedaulatan rakyat</li>
+        <li>Pokok IV: Ketuhanan dan Kemanusiaan</li>
+      </ul>`
+  },
+  {
+    num: 10,
+    title: "Lembaga Penegak Hukum",
+    tags: ["Lembaga","Hukum","Fungsi"],
+    content: `
+      <h5>Kepolisian (POLRI)</h5>
+      <ul>
+        <li>Fungsi: Memelihara keamanan dan ketertiban, penegakan hukum, perlindungan masyarakat</li>
+        <li>Peran: Penyelidik dan penyidik dalam proses hukum pidana</li>
+      </ul>
+      <h5>Kejaksaan</h5>
+      <ul>
+        <li>Fungsi: Penuntutan perkara pidana ke pengadilan</li>
+        <li>Peran: Jaksa sebagai penuntut umum di persidangan</li>
+      </ul>
+      <h5>Kehakiman/Pengadilan</h5>
+      <ul>
+        <li>Fungsi: Mengadili perkara dan memutuskan hukuman</li>
+        <li>Lembaga: MA, PT, PN, PTUN, PA, MK</li>
+      </ul>
+      <h5>KPK (Komisi Pemberantasan Korupsi)</h5>
+      <ul>
+        <li>Fungsi: Menyelidiki, menyidik, dan menuntut kasus korupsi</li>
+        <li>Independen dari pemerintah dan pengadilan</li>
+      </ul>
+      <h5>Advokat/Pengacara</h5>
+      <ul>
+        <li>Fungsi: Memberikan bantuan hukum kepada klien</li>
+        <li>Peran: Membela terdakwa atau penggugat/tergugat</li>
+      </ul>`
+  },
+  {
+    num: 11,
+    title: "Bela Negara",
+    tags: ["Bela Negara","Kewajiban","Aturan"],
+    content: `
+      <h5>Pengertian Bela Negara</h5>
+      <p>Bela negara adalah sikap dan perilaku warga negara yang dijiwai kecintaannya kepada NKRI berdasarkan Pancasila dan UUD 1945 dalam menjamin kelangsungan hidup bangsa dan negara.</p>
+      <h5>Aturan Bela Negara</h5>
+      <ul>
+        <li>Pasal 27 ayat 3 UUD 1945: Setiap warga negara berhak dan wajib ikut serta dalam upaya pembelaan negara</li>
+        <li>Pasal 30 UUD 1945: Hak dan kewajiban dalam pertahanan keamanan</li>
+        <li>UU No. 3 Tahun 2002 tentang Pertahanan Negara</li>
+      </ul>
+      <h5>Contoh Bela Negara</h5>
+      <ul>
+        <li>Non-fisik: berprestasi di bidang akademik, menjaga persatuan, taat hukum</li>
+        <li>Fisik: mengikuti TNI/Polri, wajib militer saat perang</li>
+        <li>Sehari-hari: mencintai produk dalam negeri, tidak menyebarkan hoaks</li>
+        <li>Pelajar: giat belajar, ikut upacara, menjaga nama baik Indonesia</li>
+      </ul>`
+  },
+  {
+    num: 12,
+    title: "Konflik Sosial",
+    tags: ["Konflik","Masyarakat","Separatis"],
+    content: `
+      <h5>Pengertian Konflik</h5>
+      <p>Konflik adalah pertentangan atau pertikaian antara individu, kelompok, atau bangsa akibat perbedaan kepentingan, nilai, norma, atau sumber daya yang langka.</p>
+      <h5>Jenis-Jenis Konflik</h5>
+      <ul>
+        <li>Konflik individu: pertentangan antar pribadi</li>
+        <li>Konflik kelompok: antar suku, agama, ras</li>
+        <li>Konflik nasional: separatisme (GAM, RMS, OPM)</li>
+        <li>Konflik internasional: perang antar negara</li>
+      </ul>
+      <h5>Separatisme</h5>
+      <p>Gerakan yang berupaya memisahkan diri dari negara. Contoh di Indonesia: GAM (Gerakan Aceh Merdeka), RMS (Republik Maluku Selatan), OPM (Organisasi Papua Merdeka).</p>
+      <h5>Manfaat Konflik (Positif)</h5>
+      <ul>
+        <li>Mendorong perubahan sosial yang lebih baik</li>
+        <li>Memperkuat solidaritas dalam kelompok</li>
+        <li>Menghasilkan kompromi dan solusi kreatif</li>
+      </ul>
+      <h5>Cara Mengatasi Konflik</h5>
+      <ul>
+        <li>Mediasi, negosiasi, arbitrasi</li>
+        <li>Dialog antar kelompok</li>
+        <li>Penegakan hukum yang adil</li>
+      </ul>`
+  },
+  {
+    num: 13,
+    title: "Keberagaman dalam Masyarakat",
+    tags: ["Keberagaman","Sosial","Budaya"],
+    content: `
+      <h5>Keberagaman Sosial Budaya</h5>
+      <p>Indonesia memiliki lebih dari 300 suku bangsa, 700+ bahasa daerah, dan 6 agama yang diakui negara. Semboyan "Bhinneka Tunggal Ika" (berbeda-beda tetapi tetap satu) menjadi perekat bangsa.</p>
+      <h5>Keberagaman Ekonomi</h5>
+      <p>Perbedaan tingkat kesejahteraan, pekerjaan, dan penghasilan antar kelompok masyarakat. Kesenjangan ekonomi antara kaya dan miskin perlu diatasi melalui program pemerataan pembangunan.</p>
+      <h5>Keberagaman Gender</h5>
+      <p>Perbedaan peran, hak, dan kesempatan antara laki-laki dan perempuan dalam masyarakat. Kesetaraan gender berarti memberikan kesempatan yang sama tanpa diskriminasi.</p>
+      <h5>Keberagaman Politik</h5>
+      <p>Perbedaan pandangan, ideologi, dan pilihan politik dalam masyarakat demokratis. Dijamin oleh UUD 1945 melalui kebebasan berserikat dan berkumpul (Pasal 28).</p>
+      <h5>Menyikapi Keberagaman</h5>
+      <ul>
+        <li>Toleransi: menghargai perbedaan</li>
+        <li>Inklusif: terbuka dan menerima</li>
+        <li>Gotong royong: bekerja sama lintas kelompok</li>
+      </ul>`
+  },
+  {
+    num: 14,
+    title: "Organisasi Perjuangan",
+    tags: ["Organisasi","Sejarah","Perjuangan"],
+    content: `
+      <h5>NU (Nahdlatul Ulama)</h5>
+      <p>Didirikan 31 Januari 1926 oleh K.H. Hasyim Asy'ari di Surabaya. Merupakan organisasi Islam terbesar di Indonesia dengan basis pesantren. Berperan aktif dalam perjuangan kemerdekaan melalui Resolusi Jihad 1945.</p>
+      <h5>Muhammadiyah</h5>
+      <p>Didirikan 18 November 1912 oleh K.H. Ahmad Dahlan di Yogyakarta. Organisasi Islam modern yang fokus pada pendidikan dan kesehatan. Mendirikan ribuan sekolah dan rumah sakit di seluruh Indonesia.</p>
+      <h5>Indische Partij</h5>
+      <p>Didirikan 1912 oleh tiga serangkai: Douwes Dekker, Tjipto Mangunkusumo, dan Ki Hajar Dewantara. Partai politik pertama di Indonesia yang menuntut kemerdekaan. Dibubarkan oleh Belanda pada 1913.</p>
+      <h5>Peran Organisasi dalam Kemerdekaan</h5>
+      <ul>
+        <li>Membangkitkan kesadaran nasional</li>
+        <li>Memperjuangkan hak-hak bangsa Indonesia</li>
+        <li>Mempersiapkan kader pemimpin bangsa</li>
+        <li>Menyatukan berbagai lapisan masyarakat</li>
+      </ul>`
+  },
+  {
+    num: 15,
+    title: "Rancangan UU & Pokok Pikiran",
+    tags: ["UU","Legislasi","DPR"],
+    content: `
+      <h5>Rancangan Undang-Undang (RUU)</h5>
+      <p>RUU adalah rancangan peraturan perundang-undangan yang diajukan untuk dibahas dan disahkan menjadi UU. RUU dapat diajukan oleh DPR, DPD, atau Presiden.</p>
+      <h5>Proses Pembentukan UU</h5>
+      <ul>
+        <li>Pengajuan RUU</li>
+        <li>Pembahasan di DPR (komisi terkait)</li>
+        <li>Pengesahan dalam rapat paripurna</li>
+        <li>Penandatanganan Presiden</li>
+        <li>Pengundangan dalam Lembaran Negara</li>
+      </ul>
+      <h5>Hierarki Peraturan Perundang-undangan Indonesia</h5>
+      <ul>
+        <li>UUD 1945</li>
+        <li>Ketetapan MPR</li>
+        <li>Undang-Undang / Peraturan Pemerintah Pengganti UU</li>
+        <li>Peraturan Pemerintah</li>
+        <li>Peraturan Presiden</li>
+        <li>Peraturan Daerah</li>
+      </ul>`
+  }
+];
+
+// ===== DATA SOAL =====
+const quizData = [
+  // SEJARAH PANCASILA
+  {q:"BPUPKI dibentuk oleh pemerintah Jepang pada tanggal...",opts:["1 Maret 1945","17 Agustus 1945","29 Mei 1945","7 Agustus 1945"],ans:0,exp:"BPUPKI (Badan Penyelidik Usaha-Usaha Persiapan Kemerdekaan Indonesia) dibentuk oleh Jepang pada 1 Maret 1945 untuk mempersiapkan kemerdekaan Indonesia."},
+  {q:"Siapakah yang mencetuskan nama 'Pancasila' sebagai dasar negara Indonesia?",opts:["Mohammad Yamin","Mr. Soepomo","Ir. Soekarno","Mohammad Hatta"],ans:2,exp:"Ir. Soekarno adalah tokoh yang mencetuskan nama 'Pancasila' pada sidang BPUPKI tanggal 1 Juni 1945. Itulah mengapa 1 Juni diperingati sebagai Hari Lahir Pancasila."},
+  {q:"Sidang pertama BPUPKI membahas tentang...",opts:["UUD negara","Dasar negara","Wilayah negara","Pemilihan presiden"],ans:1,exp:"Sidang pertama BPUPKI (29 Mei – 1 Juni 1945) membahas tentang dasar negara Indonesia yang akan merdeka."},
+  {q:"PPKI mengesahkan UUD 1945 pada tanggal...",opts:["17 Agustus 1945","18 Agustus 1945","19 Agustus 1945","20 Agustus 1945"],ans:1,exp:"PPKI mengesahkan UUD 1945 pada 18 Agustus 1945, sehari setelah proklamasi kemerdekaan. Sekaligus memilih Soekarno-Hatta sebagai presiden dan wakil presiden."},
+  {q:"Rumusan Pancasila yang sah terdapat dalam...",opts:["Dekrit Presiden 5 Juli 1959","Piagam Jakarta","Pembukaan UUD 1945","Tap MPR Nomor III"],ans:2,exp:"Rumusan Pancasila yang sah dan resmi terdapat dalam Pembukaan UUD 1945 alinea keempat, bukan dalam Piagam Jakarta yang masih memuat 7 kata tambahan."},
+  {q:"Sila ke-4 Pancasila berbunyi...",opts:["Keadilan Sosial bagi Seluruh Rakyat Indonesia","Persatuan Indonesia","Ketuhanan Yang Maha Esa","Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan"],ans:3,exp:"Sila ke-4 Pancasila adalah Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan. Sila ini merupakan yang paling panjang dalam Pancasila."},
+  {q:"Perubahan pada Piagam Jakarta saat disahkan sebagai pembukaan UUD 1945 adalah...",opts:["Penghapusan sila ke-5","Penggantian kata 'Ketuhanan dengan kewajiban menjalankan syariat Islam' menjadi 'Ketuhanan Yang Maha Esa'","Penambahan sila baru","Perubahan urutan sila"],ans:1,exp:"Kata 'dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya' diganti menjadi 'Yang Maha Esa' demi persatuan dan menjaga perasaan warga non-Muslim."},
+  // NORMA
+  {q:"Norma yang bersumber dari Tuhan dan sanksinya berupa dosa adalah...",opts:["Norma hukum","Norma kesopanan","Norma agama","Norma kesusilaan"],ans:2,exp:"Norma agama bersumber dari ajaran Tuhan (kitab suci) dan sanksinya bersifat akhirat yaitu dosa. Berbeda dengan norma hukum yang sanksinya tegas dari negara."},
+  {q:"Contoh sanksi dari norma kesusilaan adalah...",opts:["Penjara","Denda","Dikucilkan masyarakat","Rasa malu dan penyesalan"],ans:3,exp:"Norma kesusilaan bersumber dari hati nurani manusia. Sanksinya bersifat psikologis yaitu rasa malu, penyesalan, dan perasaan bersalah dalam diri sendiri."},
+  {q:"Norma yang paling tegas sanksinya adalah...",opts:["Norma agama","Norma kesusilaan","Norma kesopanan","Norma hukum"],ans:3,exp:"Norma hukum memiliki sanksi paling tegas karena dibuat oleh negara dan bersifat memaksa. Sanksinya dapat berupa penjara, denda, atau hukuman lainnya."},
+  // SISTEM PEMERINTAHAN
+  {q:"Indonesia menganut sistem pemerintahan...",opts:["Parlementer","Presidensial","Monarki","Federal"],ans:1,exp:"Indonesia menganut sistem pemerintahan presidensial di mana presiden adalah kepala negara sekaligus kepala pemerintahan, dan dipilih langsung oleh rakyat."},
+  {q:"Dalam sistem parlementer, kepala pemerintahan disebut...",opts:["Presiden","Raja/Ratu","Perdana Menteri","Gubernur Jenderal"],ans:2,exp:"Dalam sistem parlementer, kepala pemerintahan adalah Perdana Menteri yang dipilih oleh parlemen dan bertanggung jawab kepada parlemen."},
+  {q:"Ciri khas sistem presidensial adalah...",opts:["Presiden dipilih parlemen","Presiden bertanggung jawab kepada parlemen","Presiden dipilih langsung rakyat","Presiden dapat dijatuhkan mosi tidak percaya"],ans:2,exp:"Ciri utama sistem presidensial adalah presiden dipilih langsung oleh rakyat melalui pemilu, bukan oleh parlemen. Ini membuat presiden memiliki legitimasi langsung dari rakyat."},
+  // PERJUANGAN KEMERDEKAAN
+  {q:"Budi Utomo didirikan pada tanggal...",opts:["28 Oktober 1908","20 Mei 1908","17 Agustus 1945","1 Juni 1945"],ans:1,exp:"Budi Utomo didirikan pada 20 Mei 1908 oleh Dr. Soetomo atas gagasan Dr. Wahidin Sudirohusodo. Tanggal ini diperingati sebagai Hari Kebangkitan Nasional."},
+  {q:"Sumpah Pemuda diikrarkan pada tanggal...",opts:["17 Agustus 1945","20 Mei 1908","28 Oktober 1928","1 Juni 1945"],ans:2,exp:"Sumpah Pemuda diikrarkan pada 28 Oktober 1928 dalam Kongres Pemuda II di Jakarta, menyatakan satu bangsa, satu tanah air, dan satu bahasa Indonesia."},
+  {q:"Hari Pahlawan diperingati setiap tanggal 10 November untuk mengenang pertempuran di...",opts:["Jakarta","Bandung","Surabaya","Madiun"],ans:2,exp:"10 November diperingati Hari Pahlawan untuk mengenang pertempuran heroik rakyat Surabaya melawan pasukan Inggris pada 10 November 1945. Bung Tomo membakar semangat dengan pidatonya."},
+  {q:"Perjanjian Linggarjati ditandatangani antara Indonesia dan...",opts:["Jepang","Amerika Serikat","Belanda","Inggris"],ans:2,exp:"Perjanjian Linggarjati (25 Maret 1947) ditandatangani antara Indonesia dan Belanda. Belanda mengakui secara de facto wilayah Jawa, Madura, dan Sumatra sebagai wilayah RI."},
+  {q:"Indische Partij didirikan oleh tiga serangkai yang terdiri dari...",opts:["Soekarno, Hatta, Sjahrir","Douwes Dekker, Tjipto Mangunkusumo, Ki Hajar Dewantara","Wahidin Sudirohusodo, Soetomo, Cipto","Tan Malaka, Semaun, Darsono"],ans:1,exp:"Indische Partij (1912) didirikan oleh Douwes Dekker (Danudirja Setiabudi), Tjipto Mangunkusumo, dan Ki Hajar Dewantara – dikenal sebagai Tiga Serangkai."},
+  // UUD 1945
+  {q:"UUD 1945 telah diamandemen sebanyak berapa kali?",opts:["2 kali","3 kali","4 kali","5 kali"],ans:2,exp:"UUD 1945 telah diamandemen sebanyak 4 kali, yaitu pada tahun 1999, 2000, 2001, dan 2002 oleh MPR. Amandemen ini mengubah sistem ketatanegaraan Indonesia secara signifikan."},
+  {q:"Pasal UUD 1945 yang mengatur tentang agama adalah...",opts:["Pasal 27","Pasal 28","Pasal 29","Pasal 30"],ans:2,exp:"Pasal 29 UUD 1945 mengatur tentang agama: (1) Negara berdasar atas Ketuhanan YME, (2) Negara menjamin kemerdekaan penduduk untuk memeluk agamanya masing-masing."},
+  {q:"Pembukaan UUD 1945 alinea ke-4 berisi...",opts:["Pernyataan kemerdekaan","Tujuan negara dan Pancasila","Perjuangan kemerdekaan","Hak segala bangsa"],ans:1,exp:"Pembukaan UUD 1945 alinea ke-4 berisi tujuan negara Indonesia (melindungi segenap bangsa, memajukan kesejahteraan umum, mencerdaskan kehidupan bangsa, ikut perdamaian dunia) dan dasar negara Pancasila."},
+  {q:"Pasal 33 UUD 1945 mengatur tentang...",opts:["Pendidikan","Pertahanan negara","Perekonomian","Kebudayaan"],ans:2,exp:"Pasal 33 UUD 1945 mengatur tentang perekonomian nasional: perekonomian berdasar asas kekeluargaan, dan cabang produksi yang penting dikuasai oleh negara untuk kemakmuran rakyat."},
+  {q:"Sebelum amandemen, presiden Indonesia dipilih oleh...",opts:["Rakyat langsung","DPR","MPR","DPD"],ans:2,exp:"Sebelum amandemen UUD 1945, presiden dipilih oleh MPR (Majelis Permusyawaratan Rakyat). Setelah amandemen ke-3 (2001), presiden dipilih langsung oleh rakyat."},
+  {q:"Pokok pikiran pertama Pembukaan UUD 1945 adalah...",opts:["Keadilan sosial","Persatuan","Kedaulatan rakyat","Ketuhanan"],ans:1,exp:"Pokok pikiran pertama Pembukaan UUD 1945 adalah Persatuan: negara melindungi segenap bangsa Indonesia dan seluruh tumpah darah Indonesia dengan dasar persatuan."},
+  // LEMBAGA PENEGAK HUKUM
+  {q:"Lembaga yang bertugas melakukan penuntutan dalam perkara pidana adalah...",opts:["Kepolisian","Kejaksaan","Kehakiman","KPK"],ans:1,exp:"Kejaksaan bertugas melakukan penuntutan perkara pidana ke pengadilan. Jaksa bertindak sebagai penuntut umum dalam persidangan pidana."},
+  {q:"KPK (Komisi Pemberantasan Korupsi) memiliki kewenangan khusus dalam...",opts:["Mengadili kasus terorisme","Menyelidiki dan menuntut kasus korupsi","Mengatur lalu lintas","Menjaga ketertiban masyarakat"],ans:1,exp:"KPK memiliki kewenangan khusus untuk menyelidiki, menyidik, dan menuntut kasus korupsi di Indonesia. KPK bersifat independen dan tidak berada di bawah kekuasaan manapun."},
+  {q:"Mahkamah Konstitusi (MK) dibentuk melalui amandemen ke...",opts:["Pertama","Kedua","Ketiga","Keempat"],ans:2,exp:"Mahkamah Konstitusi (MK) dibentuk melalui amandemen ketiga UUD 1945 pada tahun 2001. MK berwenang menguji UU terhadap UUD dan memutus sengketa kewenangan lembaga negara."},
+  // BELA NEGARA
+  {q:"Dasar hukum bela negara dalam UUD 1945 terdapat pada...",opts:["Pasal 25","Pasal 26","Pasal 27 ayat 3","Pasal 28"],ans:2,exp:"Pasal 27 ayat 3 UUD 1945 menyatakan bahwa setiap warga negara berhak dan wajib ikut serta dalam upaya pembelaan negara. Ini merupakan dasar hukum bela negara."},
+  {q:"Contoh bela negara yang dapat dilakukan pelajar sehari-hari adalah...",opts:["Bergabung TNI","Berperang di front terdepan","Giat belajar dan berprestasi","Membeli senjata"],ans:2,exp:"Bela negara tidak harus berperang. Pelajar dapat bela negara dengan giat belajar, berprestasi, menjaga nama baik Indonesia, dan ikut upacara bendera."},
+  {q:"UU yang mengatur tentang Pertahanan Negara Indonesia adalah...",opts:["UU No. 2 Tahun 2002","UU No. 3 Tahun 2002","UU No. 4 Tahun 2004","UU No. 5 Tahun 2005"],ans:1,exp:"Pertahanan Negara Indonesia diatur dalam UU No. 3 Tahun 2002 tentang Pertahanan Negara. UU ini mengatur sistem pertahanan semesta yang melibatkan seluruh warga negara."},
+  // KONFLIK
+  {q:"Gerakan separatis yang berusaha memisahkan Aceh dari NKRI disebut...",opts:["RMS","OPM","GAM","PKI"],ans:2,exp:"GAM (Gerakan Aceh Merdeka) adalah gerakan separatis di Aceh yang ingin memisahkan diri dari NKRI. Konflik ini berakhir dengan Perjanjian Helsinki 2005."},
+  {q:"Cara damai untuk menyelesaikan konflik dengan melibatkan pihak ketiga yang netral disebut...",opts:["Arbitrasi","Mediasi","Koersi","Eliminasi"],ans:1,exp:"Mediasi adalah cara penyelesaian konflik dengan melibatkan pihak ketiga yang netral (mediator) untuk membantu kedua pihak mencapai kesepakatan secara damai."},
+  {q:"Manfaat positif dari konflik sosial adalah...",opts:["Memecah belah masyarakat","Mendorong perubahan sosial yang lebih baik","Melemahkan negara","Menimbulkan perpecahan"],ans:1,exp:"Meskipun konflik umumnya negatif, dampak positifnya adalah mendorong perubahan sosial, memperkuat solidaritas dalam kelompok, dan menghasilkan solusi kreatif melalui kompromi."},
+  // KEBERAGAMAN
+  {q:"Semboyan 'Bhinneka Tunggal Ika' berasal dari kitab...",opts:["Negarakertagama","Sutasoma","Pararaton","Arjunawiwaha"],ans:1,exp:"'Bhinneka Tunggal Ika' berasal dari kitab Sutasoma karangan Mpu Tantular pada era Majapahit. Artinya 'berbeda-beda tetapi tetap satu jua'."},
+  {q:"Indonesia memiliki lebih dari berapa suku bangsa?",opts:["100","200","300","400"],ans:2,exp:"Indonesia memiliki lebih dari 300 suku bangsa yang tersebar dari Sabang sampai Merauke, menjadikannya salah satu negara paling beragam di dunia."},
+  {q:"Keberagaman gender dalam masyarakat diatasi dengan prinsip...",opts:["Dominasi laki-laki","Kesetaraan gender","Pembatasan peran perempuan","Diskriminasi positif"],ans:1,exp:"Keberagaman gender diatasi dengan prinsip kesetaraan gender, yaitu memberikan hak dan kesempatan yang sama antara laki-laki dan perempuan tanpa diskriminasi."},
+  // ORGANISASI
+  {q:"NU (Nahdlatul Ulama) didirikan oleh...",opts:["K.H. Ahmad Dahlan","K.H. Hasyim Asy'ari","Ir. Soekarno","Mohammad Hatta"],ans:1,exp:"NU (Nahdlatul Ulama) didirikan oleh K.H. Hasyim Asy'ari pada 31 Januari 1926 di Surabaya. NU merupakan organisasi Islam terbesar di Indonesia dengan basis pesantren."},
+  {q:"Muhammadiyah didirikan pada tahun...",opts:["1905","1908","1912","1926"],ans:2,exp:"Muhammadiyah didirikan oleh K.H. Ahmad Dahlan pada 18 November 1912 di Yogyakarta. Organisasi ini fokus pada pembaruan pendidikan dan kesehatan berbasis Islam modern."},
+  {q:"Indische Partij adalah partai politik pertama di Indonesia yang...",opts:["Mendukung penjajahan","Menuntut kemerdekaan","Mendirikan sekolah Islam","Membangun rumah sakit"],ans:1,exp:"Indische Partij (1912) adalah partai politik pertama di Indonesia yang secara tegas menuntut kemerdekaan Indonesia dari penjajahan Belanda. Partai ini kemudian dibubarkan paksa oleh Belanda."},
+  // SOAL TAMBAHAN
+  {q:"Sidang kedua BPUPKI membahas tentang...",opts:["Dasar negara","UUD dan wilayah negara","Pemilihan presiden","Pembentukan TNI"],ans:1,exp:"Sidang kedua BPUPKI (10-17 Juli 1945) membahas tentang Undang-Undang Dasar (UUD) dan wilayah negara Indonesia yang akan merdeka."},
+  {q:"Piagam Jakarta mengandung tujuh kata yang kemudian dihapus, yaitu...",opts:["'dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya'","'berdasarkan atas Ketuhanan Yang Maha Esa'","'demi persatuan bangsa Indonesia'","'oleh hikmat kebijaksanaan'"],ans:0,exp:"Tujuh kata yang dihapus dari Piagam Jakarta adalah 'dengan kewajiban menjalankan syariat Islam bagi pemeluk-pemeluknya'. Penghapusan ini dilakukan demi persatuan bangsa pada 18 Agustus 1945."},
+  {q:"Fungsi UUD 1945 sebagai hukum dasar negara berarti...",opts:["Bisa diubah kapan saja","Merupakan hukum tertinggi yang menjadi sumber semua hukum","Hanya berlaku untuk pejabat negara","Tidak perlu ditaati rakyat biasa"],ans:1,exp:"UUD 1945 sebagai hukum dasar berarti ia adalah hukum tertinggi (supreme law) yang menjadi sumber dan landasan bagi semua peraturan perundang-undangan di bawahnya."},
+  {q:"Resolusi Jihad 1945 dikeluarkan oleh...",opts:["Muhammadiyah","NU","Indische Partij","Budi Utomo"],ans:1,exp:"Resolusi Jihad 22 Oktober 1945 dikeluarkan oleh K.H. Hasyim Asy'ari atas nama NU. Fatwa ini menyerukan umat Islam Indonesia berjihad melawan penjajah yang akan kembali."},
+  {q:"Sistem pemerintahan parlementer pernah diterapkan di Indonesia pada periode...",opts:["1945-1949","1950-1959","1959-1965","1966-1998"],ans:1,exp:"Indonesia menerapkan sistem pemerintahan parlementer pada periode 1950-1959 (Demokrasi Liberal). Dalam periode ini kabinet sering berganti karena mosi tidak percaya dari parlemen."},
+  {q:"Pasal 31 UUD 1945 mengatur tentang...",opts:["Agama","Pertahanan","Pendidikan","Kebudayaan"],ans:2,exp:"Pasal 31 UUD 1945 mengatur tentang pendidikan: setiap warga negara berhak mendapat pendidikan, dan pemerintah wajib mengusahakan satu sistem pendidikan nasional."},
+  {q:"Konflik separatisme di Papua dalam NKRI dikenal dengan nama...",opts:["GAM","RMS","PKI","OPM"],ans:3,exp:"OPM (Organisasi Papua Merdeka) adalah gerakan separatis di Papua yang berupaya memisahkan Papua dari NKRI. Gerakan ini masih aktif hingga kini."},
+  {q:"Norma kesopanan mendapat sanksi berupa...",opts:["Dosa","Penjara","Dikucilkan masyarakat","Rasa malu"],ans:2,exp:"Norma kesopanan bersumber dari masyarakat. Sanksi pelanggarannya bersifat sosial, yaitu dikucilkan atau dijauhi oleh masyarakat sekitar."},
+  {q:"Amandemen pertama UUD 1945 dilakukan pada tahun...",opts:["1997","1998","1999","2000"],ans:2,exp:"Amandemen pertama UUD 1945 dilakukan pada tahun 1999 dalam Sidang Umum MPR. Amandemen ini membatasi kekuasaan presiden dan memperkuat peran DPR."},
+  {q:"Budi Utomo dianggap sebagai organisasi pergerakan nasional pertama karena...",opts:["Menuntut kemerdekaan secara terang-terangan","Merupakan organisasi modern dan terorganisir pertama di bidang pendidikan-kebudayaan","Mendirikan partai politik","Melakukan perlawanan bersenjata"],ans:1,exp:"Budi Utomo (1908) dianggap pelopor pergerakan nasional karena merupakan organisasi modern, terorganisir, dan bersifat nasional pertama yang memperjuangkan kemajuan lewat pendidikan dan kebudayaan."},
+  {q:"Tujuan negara Indonesia yang tercantum dalam Pembukaan UUD 1945 alinea ke-4 adalah, KECUALI...",opts:["Melindungi segenap bangsa","Memajukan kesejahteraan umum","Mencerdaskan kehidupan bangsa","Menaklukkan bangsa lain"],ans:3,exp:"Tujuan negara Indonesia (Pembukaan alinea 4) adalah: melindungi segenap bangsa, memajukan kesejahteraan umum, mencerdaskan kehidupan bangsa, dan ikut melaksanakan ketertiban dunia. Tidak ada tujuan menaklukkan bangsa lain."}
+];
+
+// ===== STATE =====
+let currentPage = 'materi';
+let currentQ = 0;
+let answers = new Array(50).fill(null);
+let answered = new Array(50).fill(false);
+let startTime = Date.now();
+let musicPlaying = false;
+let eyeMode = false;
+let ballActive = false;
+let drawActive = false;
+let drawColor = '#38bdf8';
+let history = JSON.parse(localStorage.getItem('pkn_history') || '[]');
+
+// BALL STATE
+let balls = [];
+let ballAnimId = null;
+let draggingBall = null;
+let dragOffX = 0, dragOffY = 0;
+let lastVX = 0, lastVY = 0;
+let lastDragX = 0, lastDragY = 0;
+
+// ===== INIT =====
+window.onload = () => {
+  // Init arrays based on actual quiz size
+  answers = new Array(quizData.length).fill(null);
+  answered = new Array(quizData.length).fill(false);
+  renderMateri();
+  renderHistory();
+  renderQuizNav();
+  loadQuizCard(0);
+
+  // Try to autoplay music
+  const bg = document.getElementById('bgMusic');
+  bg.volume = 0.3;
+  document.addEventListener('click', () => {
+    if (!musicPlaying) {
+      bg.play().then(() => { musicPlaying = true; updateMusicUI(); }).catch(()=>{});
+    }
+  }, {once: true});
+};
+
+// ===== MUSIC =====
+function toggleMusic() {
+  const bg = document.getElementById('bgMusic');
+  if (musicPlaying) {
+    bg.pause();
+    musicPlaying = false;
+  } else {
+    bg.play().catch(()=>{});
+    musicPlaying = true;
+  }
+  updateMusicUI();
+}
+function updateMusicUI() {
+  document.getElementById('musicIcon').textContent = musicPlaying ? '🎵' : '🔇';
+}
+
+// ===== PAGE SWITCH =====
+function switchPage(page) {
+  currentPage = page;
+  // Hide score screen if open
+  document.getElementById('scoreScreen').classList.remove('show');
+  document.getElementById('reviewPanel').classList.remove('show');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  if (page === 'materi') {
+    document.getElementById('materiPage').classList.add('active');
+    document.querySelectorAll('.nav-tab')[0].classList.add('active');
+  } else {
+    document.getElementById('quizPage').classList.add('active');
+    document.querySelectorAll('.nav-tab')[1].classList.add('active');
+    // Ensure quiz card is loaded
+    renderQuizNav();
+    loadQuizCard(currentQ);
+  }
+}
+
+// ===== EYE MODE =====
+function toggleEye() {
+  eyeMode = !eyeMode;
+  document.body.classList.toggle('eye-care', eyeMode);
+  document.getElementById('eyeBtn').style.background = eyeMode ? 'var(--accent)' : '';
+}
+
+// ===== RENDER MATERI =====
+function renderMateri() {
+  const grid = document.getElementById('materiGrid');
+  grid.innerHTML = '';
+  materiData.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'materi-card';
+    card.style.animationDelay = (i * 0.05) + 's';
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="card-num">${m.num}</div>
+        <div class="card-title">${m.title}</div>
+        <div class="card-arrow">›</div>
+      </div>
+      <div class="card-tags">${m.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div class="card-body"><div class="card-body-inner">${m.content}</div></div>
+    `;
+    card.addEventListener('click', function(e) { toggleCard(i); });
+    // Prevent clicking inside content from closing card
+    card.querySelector('.card-body').addEventListener('click', e => e.stopPropagation());
+    grid.appendChild(card);
+  });
+}
+function toggleCard(i) {
+  const cards = document.querySelectorAll('.materi-card');
+  cards[i].classList.toggle('open');
+}
+
+// ===== AI SEARCH =====
+function searchMateri() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if (!q) return;
+  const answer = document.getElementById('aiAnswer');
+  answer.classList.add('show');
+  answer.innerHTML = '<span class="loading-dots">Mencari<span>.</span><span>.</span><span>.</span></span>';
+
+  setTimeout(() => {
+    let found = [];
+    materiData.forEach(m => {
+      const content = m.title.toLowerCase() + ' ' + m.content.toLowerCase();
+      if (content.includes(q) || q.split(' ').some(w => w.length > 3 && content.includes(w))) {
+        found.push(m);
+      }
+    });
+
+    if (found.length === 0) {
+      // Simple keyword fallback
+      const keywords = {
+        'bpupki': 0, 'pancasila': 0, 'rumusan': 1, 'ppki': 2,
+        'norma': 3, 'sanksi': 3, 'presidensial': 4, 'parlementer': 5,
+        'budi utomo': 6, 'sumpah pemuda': 6, 'surabaya': 6,
+        'uud': 7, 'amandemen': 7, 'pasal': 8, 'pembukaan': 8,
+        'lembaga hukum': 9, 'polri': 9, 'bela negara': 10,
+        'konflik': 11, 'separatis': 11, 'keberagaman': 12,
+        'nu': 13, 'muhammadiyah': 13, 'indische': 13,
+        'rancangan uu': 14, 'hierarki': 14
+      };
+      for (const [k, v] of Object.entries(keywords)) {
+        if (q.includes(k) || k.includes(q)) found.push(materiData[v]);
+      }
+    }
+
+    if (found.length > 0) {
+      const m = found[0];
+      const cleanContent = m.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 300);
+      answer.innerHTML = `
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+          <span style="font-size:16px">🤖</span>
+          <strong style="color:var(--accent)">Hasil pencarian: "${document.getElementById('searchInput').value}"</strong>
+        </div>
+        <p style="font-size:13px;line-height:1.6;color:var(--text2)">${cleanContent}...</p>
+        <div style="margin-top:8px;font-size:12px;color:var(--accent2)">📚 Sumber: ${m.title}</div>
+        <button class="btn btn-ghost" onclick="jumpToCard(${materiData.indexOf(m)})" style="margin-top:10px;padding:6px 14px;font-size:12px">Lihat Materi Lengkap →</button>
+      `;
+    } else {
+      answer.innerHTML = `
+        <div style="color:var(--text2);font-size:14px">
+          🔍 Materi tentang "<strong>${document.getElementById('searchInput').value}</strong>" tidak ditemukan dalam daftar materi PKN Kelas 9 ini. Coba kata kunci lain seperti: Pancasila, Norma, UUD 1945, Konflik, Keberagaman.
+        </div>
+      `;
+    }
+  }, 800);
+}
+function jumpToCard(i) {
+  const cards = document.querySelectorAll('.materi-card');
+  cards[i].classList.add('open');
+  cards[i].scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+// ===== RENDER QUIZ NAV =====
+function renderQuizNav() {
+  const nav = document.getElementById('quizNav');
+  nav.innerHTML = '';
+  for (let i = 0; i < quizData.length; i++) {
+    const btn = document.createElement('div');
+    btn.className = 'qnav-btn' + (i === currentQ ? ' current' : '');
+    if (answered[i]) btn.classList.add(answers[i] ? 'answered-correct' : 'answered-wrong');
+    btn.textContent = i + 1;
+    btn.onclick = () => {
+      if (answered[i]) {
+        // Can view but not re-answer
+        loadQuizCard(i, true);
+      } else {
+        loadQuizCard(i, false);
+      }
+      currentQ = i;
+      renderQuizNav();
+    };
+    nav.appendChild(btn);
+  }
+}
+
+// ===== LOAD QUIZ CARD =====
+function loadQuizCard(idx, viewOnly = false) {
+  currentQ = idx;
+  const q = quizData[idx];
+  const container = document.getElementById('quizContainer');
+  const alreadyAnswered = answered[idx];
+
+  // Progress
+  const done = answered.filter(Boolean).length;
+  document.getElementById('progressBar').style.width = (done / quizData.length * 100) + '%';
+
+  const letters = ['A','B','C','D'];
+  let optsHtml = q.opts.map((opt, i) => {
+    let cls = 'q-option';
+    if (alreadyAnswered) {
+      cls += ' disabled';
+      if (i === q.ans) cls += ' correct';
+      else if (i === q._chosen && q._chosen !== q.ans) cls += ' wrong';
+    }
+    return `<div class="${cls}" onclick="answerQ(${idx}, ${i})" data-idx="${i}">
+      <div class="q-option-letter">${letters[i]}</div>
+      <span>${opt}</span>
+    </div>`;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-card-header">
+        <div class="q-num">Soal ${idx + 1}/${quizData.length}</div>
+        <div class="q-text">${q.q}</div>
+      </div>
+      <div class="q-options" id="optContainer">${optsHtml}</div>
+      <div class="q-explanation ${alreadyAnswered ? 'show' : ''}" id="explanation">
+        <strong>📖 Pembahasan:</strong> ${q.exp}
+      </div>
+      <div class="q-controls">
+        <button class="btn btn-ghost" onclick="prevQ()" ${idx === 0 ? 'disabled style="opacity:0.4"' : ''}>← Sebelumnya</button>
+        <span style="font-size:13px;color:var(--text2)">${done}/${quizData.length} dijawab</span>
+        ${idx < quizData.length - 1 ? `<button class="btn btn-primary" onclick="nextQ()">Selanjutnya →</button>` : `<button class="btn btn-primary" onclick="finishQuiz()">Selesai ✓</button>`}
+      </div>
+    </div>
+  `;
+
+  // Re-mark wrong choice if answered
+  if (alreadyAnswered && quizData[idx]._chosen !== undefined && quizData[idx]._chosen !== q.ans) {
+    const opts = container.querySelectorAll('.q-option');
+    opts[quizData[idx]._chosen].classList.add('wrong');
+  }
+
+  renderQuizNav();
+}
+
+// ===== ANSWER QUESTION =====
+function answerQ(idx, chosen) {
+  if (answered[idx]) return;
+
+  const q = quizData[idx];
+  const correct = chosen === q.ans;
+  answers[idx] = correct;
+  answered[idx] = true;
+  quizData[idx]._chosen = chosen;
+
+  // Update options display
+  const opts = document.querySelectorAll('.q-option');
+  opts.forEach((opt, i) => {
+    opt.classList.add('disabled');
+    if (i === q.ans) opt.classList.add('correct');
+    if (i === chosen && !correct) opt.classList.add('wrong');
+  });
+
+  // Show explanation
+  document.getElementById('explanation').classList.add('show');
+
+  if (!correct) {
+    // Play video/sound on wrong
+    playWrongVideo();
+  }
+
+  renderQuizNav();
+}
+
+// ===== WRONG VIDEO =====
+function playWrongVideo() {
+  const overlay = document.getElementById('videoOverlay');
+  const vid = document.getElementById('wrongVideo');
+  const bg = document.getElementById('bgMusic');
+
+  overlay.classList.add('show');
+
+  // Pause music
+  if (musicPlaying) bg.pause();
+
+  // Try to play video
+  vid.currentTime = 0;
+  vid.play().catch(() => {
+    // If can't play (audio file as video), just wait 3s
+    setTimeout(endWrongVideo, 3000);
+    return;
+  });
+
+  vid.onended = endWrongVideo;
+
+  // Fallback: close after 30s max
+  setTimeout(endWrongVideo, 30000);
+}
+function endWrongVideo() {
+  document.getElementById('videoOverlay').classList.remove('show');
+  const bg = document.getElementById('bgMusic');
+  if (musicPlaying) bg.play().catch(()=>{});
+  document.getElementById('wrongVideo').onended = null;
+}
+
+// ===== NAVIGATION =====
+function prevQ() {
+  if (currentQ > 0) {
+    currentQ--;
+    loadQuizCard(currentQ);
+  }
+}
+function nextQ() {
+  if (currentQ < quizData.length - 1) {
+    currentQ++;
+    loadQuizCard(currentQ);
+  }
+}
+
+// ===== FINISH =====
+function finishQuiz() {
+  const total = quizData.length;
+  const correct = answers.filter(a => a === true).length;
+  const wrong = answers.filter(a => a === false).length;
+  const unanswered = total - correct - wrong;
+  const percent = Math.round((correct / total) * 100);
+
+  // Save history
+  const now = new Date();
+  const entry = {
+    date: now.toLocaleDateString('id-ID'),
+    time: now.toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}),
+    correct, wrong, unanswered, percent
+  };
+  history.unshift(entry);
+  localStorage.setItem('pkn_history', JSON.stringify(history.slice(0, 10)));
+  renderHistory();
+
+  // Show score
+  document.getElementById('scoreNum').textContent = correct;
+  document.getElementById('correctCount').textContent = correct;
+  document.getElementById('wrongCount').textContent = wrong;
+  document.getElementById('scorePercent').textContent = percent + '%';
+
+  const deg = Math.round(percent / 100 * 360);
+  document.getElementById('scoreRing').style.setProperty('--score-deg', deg + 'deg');
+
+  document.getElementById('scoreScreen').classList.add('show');
+
+  // Disco if perfect!
+  if (correct === quizData.length) {
+    showDisco();
+  }
+
+  // Store timing for prediction
+  window._quizDuration = (Date.now() - startTime) / 1000;
+  window._quizCorrect = correct;
+}
+
+// ===== DISCO =====
+function showDisco() {
+  const dc = document.getElementById('discoLights');
+  dc.innerHTML = '';
+  dc.classList.add('show');
+  const colors = ['#38bdf8','#f472b6','#fbbf24','#22c55e','#818cf8','#ef4444','#fb923c'];
+  for (let i = 0; i < 12; i++) {
+    const light = document.createElement('div');
+    light.className = 'disco-light';
+    light.style.cssText = `
+      left: ${Math.random() * 90}%;
+      background: ${colors[i % colors.length]};
+      animation-delay: ${Math.random() * 1.5}s;
+      animation-duration: ${1 + Math.random() * 1}s;
+      height: ${40 + Math.random() * 60}px;
+    `;
+    dc.appendChild(light);
+  }
+  setTimeout(() => dc.classList.remove('show'), 8000);
+}
+
+// ===== REVIEW =====
+function showReview() {
+  const wrong = [];
+  for (let i = 0; i < quizData.length; i++) {
+    if (answers[i] === false) wrong.push(i);
+  }
+  const content = document.getElementById('reviewContent');
+  if (wrong.length === 0) {
+    content.innerHTML = '<div style="text-align:center;padding:40px;color:var(--green);font-size:18px;font-weight:700">🎉 Tidak ada jawaban yang salah! Sempurna!</div>';
+  } else {
+    const letters = ['A','B','C','D'];
+    content.innerHTML = wrong.map(i => {
+      const q = quizData[i];
+      return `
+        <div class="review-item">
+          <h5>Soal ${i+1}: ${q.q}</h5>
+          <div class="review-answer">Jawabanmu: <span style="color:var(--red)">${letters[q._chosen ?? 0]}. ${q.opts[q._chosen ?? 0]}</span></div>
+          <div class="review-answer">Jawaban benar: <span class="review-correct">${letters[q.ans]}. ${q.opts[q.ans]}</span></div>
+          <div class="review-explain">📖 ${q.exp}</div>
+        </div>
+      `;
+    }).join('');
+  }
+  document.getElementById('reviewPanel').classList.add('show');
+}
+function closeReview() {
+  document.getElementById('reviewPanel').classList.remove('show');
+}
+
+// ===== SCORE ACTIONS =====
+function restartQuiz() {
+  answers = new Array(quizData.length).fill(null);
+  answered = new Array(quizData.length).fill(false);
+  quizData.forEach(q => delete q._chosen);
+  currentQ = 0;
+  startTime = Date.now();
+  document.getElementById('scoreScreen').classList.remove('show');
+  document.getElementById('discoLights').classList.remove('show');
+  renderQuizNav();
+  loadQuizCard(0);
+  switchPage('quiz');
+}
+function goToMateri() {
+  document.getElementById('scoreScreen').classList.remove('show');
+  switchPage('materi');
+}
+
+// ===== PREDICTION =====
+function showPred() {
+  document.getElementById('predModal').classList.add('show');
+  document.getElementById('predForm').style.display = 'block';
+  document.getElementById('predResult').classList.remove('show');
+}
+function closePred() {
+  document.getElementById('predModal').classList.remove('show');
+}
+function runPrediction() {
+  const m1 = document.getElementById('mapel1').value.trim();
+  const m2 = document.getElementById('mapel2').value.trim();
+  if (!m1 || !m2) { alert('Isi dulu kedua mata pelajaran!'); return; }
+
+  document.getElementById('predForm').style.display = 'none';
+  document.getElementById('predResult').classList.add('show');
+  document.getElementById('predNilai').textContent = '...';
+  document.getElementById('predMsg').textContent = '';
+
+  // Calculate based on speed & score
+  const duration = window._quizDuration || 600;
+  const correct = window._quizCorrect || 25;
+  const avgTime = duration / quizData.length; // seconds per question
+
+  let base;
+  if (avgTime < 10) base = [90, 100];
+  else if (avgTime < 20) base = [80, 95];
+  else if (avgTime < 35) base = [70, 85];
+  else if (avgTime < 60) base = [65, 80];
+  else base = [60, 75];
+
+  // Adjust by correctness
+  const correctRatio = correct / quizData.length;
+  const low = Math.round(base[0] * (0.5 + 0.5 * correctRatio));
+  const high = Math.round(base[1] * (0.5 + 0.5 * correctRatio));
+  const predicted = low + Math.floor(Math.random() * (high - low + 1));
+
+  setTimeout(() => {
+    document.getElementById('predMapelNames').textContent = `${m1} & ${m2}`;
+    document.getElementById('predNilai').textContent = predicted;
+
+    let msg = '';
+    if (predicted >= 85) msg = '🔥 Wow luar biasa! Kamu sangat siap untuk ujian besok!';
+    else if (predicted >= 75) msg = '✨ Bagus! Sedikit lagi persiapan dan kamu siap ujian!';
+    else if (predicted >= 65) msg = '📚 Lumayan, tapi coba belajar lebih rajin lagi ya!';
+    else msg = '💪 Semangat belajar! Kamu pasti bisa lebih baik!';
+    document.getElementById('predMsg').textContent = msg;
+
+    if (predicted >= 75) {
+      document.getElementById('mieSection').style.display = 'block';
+      document.getElementById('afterPredBtns').style.display = 'none';
+    } else {
+      document.getElementById('mieSection').style.display = 'none';
+      document.getElementById('afterPredBtns').style.display = 'flex';
+    }
+  }, 2000);
+}
+
+// ===== HISTORY =====
+function renderHistory() {
+  if (history.length === 0) return;
+  const banner = document.getElementById('historyBanner');
+  const list = document.getElementById('historyList');
+  banner.style.display = 'block';
+  list.innerHTML = history.map(h => `
+    <div class="history-item">
+      <span>📅 ${h.date} ${h.time}</span>
+      <span style="color:var(--green)">✅ ${h.correct}</span>
+      <span style="color:var(--red)">❌ ${h.wrong}</span>
+      <span style="color:var(--gold)">📊 ${h.percent}%</span>
+    </div>
+  `).join('');
+}
+
+// ===== DRAWING =====
+function toggleDraw() {
+  drawActive = !drawActive;
+  const panel = document.getElementById('drawPanel');
+  panel.classList.toggle('open', drawActive);
+  if (drawActive) initDraw();
+}
+function initDraw() {
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth;
+  canvas.height = 220;
+  ctx.fillStyle = '#0f172a';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  let drawing = false, lx = 0, ly = 0;
+
+  const getPos = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.clientX - rect.left, y: p.clientY - rect.top };
+  };
+
+  const start = e => { drawing = true; const p = getPos(e); lx = p.x; ly = p.y; e.preventDefault(); };
+  const draw = e => {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = getPos(e);
+    ctx.beginPath();
+    ctx.moveTo(lx, ly);
+    ctx.lineTo(p.x, p.y);
+    ctx.strokeStyle = drawColor;
+    ctx.lineWidth = document.getElementById('brushSize').value;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+    lx = p.x; ly = p.y;
+  };
+  const stop = () => drawing = false;
+
+  canvas.onmousedown = start; canvas.onmousemove = draw; canvas.onmouseup = stop; canvas.onmouseleave = stop;
+  canvas.ontouchstart = start; canvas.ontouchmove = draw; canvas.ontouchend = stop;
+}
+function setColor(c, el) {
+  drawColor = c;
+  document.querySelectorAll('.draw-color').forEach(d => d.classList.remove('active'));
+  el.classList.add('active');
+}
+function clearCanvas() {
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0f172a';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// ===== BALL GAME =====
+function toggleBall() {
+  ballActive = !ballActive;
+  const canvas = document.getElementById('ballCanvas');
+  document.getElementById('ballBtn').style.background = ballActive ? 'var(--accent)' : '';
+
+  if (ballActive) {
+    canvas.classList.add('active');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // Create one ball
+    balls = [{
+      x: window.innerWidth / 2, y: 200,
+      vx: 0, vy: 0,
+      r: 28, color: '#ffffff'
+    }];
+    startBallLoop();
+    initBallEvents(canvas);
+  } else {
+    canvas.classList.remove('active');
+    cancelAnimationFrame(ballAnimId);
+    balls = [];
+  }
+}
+
+function startBallLoop() {
+  const canvas = document.getElementById('ballCanvas');
+  const ctx = canvas.getContext('2d');
+  const gravity = 0.5;
+  const friction = 0.98;
+  const bounce = 0.7;
+
+  const loop = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    balls.forEach(b => {
+      if (b !== draggingBall) {
+        b.vy += gravity;
+        b.vx *= friction;
+        b.vy *= friction;
+        b.x += b.vx;
+        b.y += b.vy;
+
+        // Walls
+        if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx) * bounce; }
+        if (b.x + b.r > canvas.width) { b.x = canvas.width - b.r; b.vx = -Math.abs(b.vx) * bounce; }
+        if (b.y - b.r < 0) { b.y = b.r; b.vy = Math.abs(b.vy) * bounce; }
+        if (b.y + b.r > canvas.height) { b.y = canvas.height - b.r; b.vy = -Math.abs(b.vy) * bounce; }
+      }
+
+      // Draw ball
+      ctx.save();
+      ctx.shadowColor = 'rgba(56,189,248,0.5)';
+      ctx.shadowBlur = 20;
+      const grad = ctx.createRadialGradient(b.x - b.r*0.3, b.y - b.r*0.3, 2, b.x, b.y, b.r);
+      grad.addColorStop(0, '#ffffff');
+      grad.addColorStop(0.5, '#c0e8ff');
+      grad.addColorStop(1, '#38bdf8');
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+      // Shine
+      ctx.beginPath();
+      ctx.arc(b.x - b.r*0.3, b.y - b.r*0.3, b.r*0.25, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.fill();
+      ctx.restore();
+    });
+
+    ballAnimId = requestAnimationFrame(loop);
+  };
+  loop();
+}
+
+function initBallEvents(canvas) {
+  const getPos = e => {
+    const p = e.touches ? e.touches[0] : e;
+    return { x: p.clientX, y: p.clientY };
+  };
+
+  const down = e => {
+    const p = getPos(e);
+    balls.forEach(b => {
+      const dx = p.x - b.x, dy = p.y - b.y;
+      if (Math.sqrt(dx*dx + dy*dy) < b.r + 10) {
+        draggingBall = b;
+        dragOffX = dx; dragOffY = dy;
+        lastDragX = p.x; lastDragY = p.y;
+        b.vx = 0; b.vy = 0;
+      }
+    });
+  };
+  const move = e => {
+    if (!draggingBall) return;
+    e.preventDefault();
+    const p = getPos(e);
+    lastVX = p.x - lastDragX;
+    lastVY = p.y - lastDragY;
+    lastDragX = p.x; lastDragY = p.y;
+    draggingBall.x = p.x - dragOffX;
+    draggingBall.y = p.y - dragOffY;
+  };
+  const up = () => {
+    if (draggingBall) {
+      draggingBall.vx = lastVX * 1.5;
+      draggingBall.vy = lastVY * 1.5;
+      draggingBall = null;
+    }
+  };
+
+  canvas.onmousedown = down;
+  canvas.onmousemove = move;
+  canvas.onmouseup = up;
+  canvas.ontouchstart = e => { down(e); };
+  canvas.ontouchmove = e => { move(e); e.preventDefault(); };
+  canvas.ontouchend = up;
+}
+</script>
+</body>
+</html>
